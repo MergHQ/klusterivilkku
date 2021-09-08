@@ -5,6 +5,8 @@ CREATE EXTENSION IF NOT EXISTS "citext";
 
 CREATE TABLE users (
   id             UUID        PRIMARY KEY DEFAULT uuid_generate_v4(),
+  fist_name      TEXT        NOT NULL,
+  last_name      TEXT        NOT NULL,
   email          CITEXT      NOT NULL UNIQUE,
   password       TEXT        NOT NULL,      
   created_at     TIMESTAMPTZ NOT NULL DEFAULT now()
