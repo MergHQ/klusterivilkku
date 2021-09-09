@@ -24,6 +24,11 @@ export type Error =
       message: unknown
       status: number
     }
+  | {
+      type: 'jwt_error'
+      message: unknown
+      status: number
+    }
 
 export const createError =
   (error: Error['type']) =>
@@ -56,6 +61,12 @@ export const createError =
       case 'internal_error':
         return {
           type: 'internal_error',
+          message: JSON.stringify(message),
+          status: 500,
+        }
+      case 'jwt_error':
+        return {
+          type: 'jwt_error',
           message: JSON.stringify(message),
           status: 500,
         }

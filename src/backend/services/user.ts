@@ -77,9 +77,9 @@ export const createUser = (pg: PgClient) => (body: PostUserBody) =>
       pipe(
         hashPassword(body.password),
         TE.chain(hash =>
-          pg.none(
+          pg.any(
             SQL`
-              INSERT INTO users (first_name, last_name, email, hash) VALUES (
+              INSERT INTO users (first_name, last_name, email, password) VALUES (
                 ${body.firstName},
                 ${body.lastName},
                 ${body.email},
