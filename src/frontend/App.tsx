@@ -1,13 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BmurData } from './api'
+import { Footer } from './components/footer'
 import { Home } from './pages/home'
 import { Login } from './pages/login'
 import { SignUp } from './pages/sign-up'
 import { parseBmurData } from './utils'
 
 const Container = styled.div`
+  height: 100vh;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
 `
 export type Pages =
   | {
@@ -19,7 +23,12 @@ export type Pages =
 export const App = () => {
   const [page, setPage] = React.useState<Pages>(resolveInitialPage())
 
-  return <Container>{router(page, setPage)}</Container>
+  return (
+    <Container>
+      {router(page, setPage)}
+      <Footer />
+    </Container>
+  )
 }
 
 const router = (page: Pages, setPage: (pages: Pages) => void) => {
