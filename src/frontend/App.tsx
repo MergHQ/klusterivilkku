@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { BmurData } from './api'
 import { Home } from './pages/home'
 import { Login } from './pages/login'
 import { SignUp } from './pages/sign-up'
@@ -8,7 +9,12 @@ import { parseBmurData } from './utils'
 const Container = styled.div`
   width: 100vw;
 `
-export type Pages = 'login' | 'signup' | 'home'
+export type Pages =
+  | {
+      name: 'login'
+    }
+  | { name: 'signup' }
+  | { name: 'home'; userData: BmurData }
 
 export const App = () => {
   const [page, setPage] = React.useState<Pages>(resolveInitialPage())
@@ -17,24 +23,32 @@ export const App = () => {
 }
 
 const router = (page: Pages, setPage: (pages: Pages) => void) => {
-  switch (page) {
+  switch (page.name) {
     case 'login':
       return <Login setPage={setPage} />
     case 'signup':
       return <SignUp setPage={setPage} />
     case 'home':
-      return <Home setPage={setPage} />
+      return <Home setPage={setPage} userData={page.userData} />
   }
 }
 
 const resolveInitialPage = (): Pages => {
   const bmurData = localStorage.getItem('bmur_data')
   if (bmurData) {
-    if (parseBmurData(bmurData).expiresAt <= Date.now()) {
+    const parsedBmurData = parseBmurData(bmurData)
+    if (parsedBmurData.expiresAt <= Date.now()) {
       localStorage.removeItem('bmur_data')
-      return 'login'
+      return {
+        name: 'login',
+      }
     }
-    return 'home'
+    return {
+      name: 'home',
+      userData: parsedBmurData,
+    }
   }
-  return 'login'
+  return {
+    name: 'login',
+  }
 }

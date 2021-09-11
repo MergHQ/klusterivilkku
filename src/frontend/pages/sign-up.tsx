@@ -31,7 +31,7 @@ const submit =
   (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     signUp(data)
-      .then(() => setPage('login'))
+      .then(() => setPage({ name: 'login' }))
       .catch(() => alert('Failed to create user'))
   }
 

@@ -30,7 +30,9 @@
   "scripts": {
     "dev-server": "ts-node ./src/backend/app.ts",
     "watch-frontend": "parcel watch ./src/frontend/public/index.html",
-    "migrate:up": "node-pg-migrate up"
+    "migrate:up": "node-pg-migrate up",
+    "build": "parcel build ./src/frontend/public/index.html && tsc",
+    "start": "node ./build/app.js"
   },
   "prettier": {
     "arrowParens": "avoid",

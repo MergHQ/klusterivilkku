@@ -18,7 +18,7 @@ const submit =
   (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     login(data)
-      .then(() => setPage('home'))
+      .then(userData => setPage({ name: 'home', userData }))
       .catch(() => alert('Failed to login'))
   }
 
@@ -50,7 +50,7 @@ export const Login = ({ setPage }: Props) => {
         />
         <Submit label="Log in"></Submit>
       </form>
-      <a href="#" onClick={() => setPage('signup')}>
+      <a href="#" onClick={() => setPage({ name: 'signup' })}>
         Sign up
       </a>
     </PageContainer>

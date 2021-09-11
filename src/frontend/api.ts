@@ -29,9 +29,10 @@ export const signUp = (formData: Partial<CreateUserFormBody>) =>
   apiClient.post('/users', formData)
 
 export const login = (loginBody: Partial<LoginForm>) =>
-  apiClient
-    .post<BmurData>('/users/login', loginBody)
-    .then(res => localStorage.setItem('bmur_data', JSON.stringify(res.data)))
+  apiClient.post<BmurData>('/users/login', loginBody).then(res => {
+    localStorage.setItem('bmur_data', JSON.stringify(res.data))
+    return res.data
+  })
 
 export const getCheckin = () =>
   getAndParseBmurData()
@@ -41,3 +42,12 @@ export const getCheckin = () =>
       })
     )
     .then(res => res.data)
+
+export const checkIn = () =>
+  getAndParseBmurData().then(({ token }) =>
+    apiClient
+      .put<CheckInResponse>('/checkins', null, {
+        headers: { authorization: token },
+      })
+      .then(res => res.data)
+  )
