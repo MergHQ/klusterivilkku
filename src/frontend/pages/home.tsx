@@ -18,16 +18,26 @@ const Wrapper = styled.div`
 `
 
 const CheckedInBox = styled.div`
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: #5aa469;
   border-radius: 50%;
   height: 250px;
   width: 250px;
-  font-size: 32px;
   color: white;
   text-align: center;
   display: flex;
   align-items: center;
   padding: 1em;
+`
+
+const CheckedInBoxTitle = styled.div`
+  font-size: 32px;
+`
+
+const CheckedInBoxSubtitle = styled.div`
+  font-size: 16px;
 `
 
 const NotCheckedInText = styled.h2`
@@ -69,7 +79,14 @@ const NotCheckedInButton = styled.button`
   animation: ${buttonAnimation} 2s linear infinite;
 `
 
-const CheckedIn = () => <CheckedInBox>you are checked in 🎉</CheckedInBox>
+const CheckedIn = () => (
+  <CheckedInBox>
+    <CheckedInBoxTitle>you are checked in 🎉</CheckedInBoxTitle>
+    <CheckedInBoxSubtitle>
+      you will automagically be checked out at 7am
+    </CheckedInBoxSubtitle>
+  </CheckedInBox>
+)
 
 const handleCheckInClick =
   (setCheckedIn: (val: boolean) => void, setPage: Props['setPage']) => () =>
