@@ -8,4 +8,4 @@ COPY ./src /app/src
 RUN yarn --dev
 RUN yarn build
 
-CMD ['yarn', 'start']
+CMD ["yarn", "start"]
