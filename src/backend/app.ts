@@ -1,6 +1,6 @@
 require('dotenv').config()
 import assert from 'assert'
-import express, { Request, Response, NextFunction } from 'express'
+import express from 'express'
 import { createCheckInRoutes } from './controllers/check-in'
 import { createUserRoutes } from './controllers/user'
 import { createPgClient } from './db'
