@@ -11,7 +11,8 @@ export type PgClient = {
 }
 
 export const createPgClient = (url: string): PgClient => {
-  const client = new pg.Pool({ max: 5, min: 0, connectionString: url })
+  const opts = { max: 5, min: 0, connectionString: url }
+  const client = new pg.Pool(process.env.NODE_ENV === 'production' ? { ...opts, ssl: { rejectUnauthorized: false  } } : opts)
 
   return {
     none: statement =>
